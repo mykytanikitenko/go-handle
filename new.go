@@ -1,5 +1,6 @@
 package handler
 
+// New creates new Handler
 func New(pipes PipeGroup, t interface{}, converter Converter) (*handler, error) {
 	if pipes == nil {
 		return nil, ErrorPipesNil

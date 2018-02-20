@@ -4,7 +4,7 @@ import (
 	"reflect"
 )
 
-// Execution pipe
+// Pipe represents a execution pipe in handler
 //
 // Example:
 //

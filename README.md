@@ -1,4 +1,4 @@
-# go-handle 
+# go-handle [![GoDoc](https://godoc.org/github.com/mykytanikitenko/go-handle?status.svg)](https://godoc.org/github.com/mykytanikitenko/go-handle) [![Go Report Card](https://goreportcard.com/badge/github.com/mykytanikitenko/go-handle)](https://goreportcard.com/report/github.com/mykytanikitenko/go-handle)
 Library for creating handlers from declarative structs for http frameworks like net/http, labstack/echo or any others
 
 ## Installation
@@ -24,11 +24,11 @@ When we write typical application, our api handlers do very typical job for requ
 8. Finally return it to the client
 
 There are many frameworks what help us to do it in a less straightforward way, for example we don't 
-need to marshal\unmarshal json directly, like we need for net/http, in many others
-there are builtin validators, DI containers, data serializers, etc. what combined in a huge frameworks
-like ASP.NET, RoR, Play and many others.
+need to marshal\unmarshal json directly, like we need for net/http. In many others
+there are builtin validators, DI containers, data serializers, etc. which combined in a huge frameworks
+like ASP.NET, RoR, Play.
 
-This library propose to declaratively describe your logic in the handler like and write processors
+This library propose to declaratively describe your logic in the handler like below and write processors
 which only required in your application
 
 
@@ -53,7 +53,7 @@ which only required in your application
  }
  ```
  
- Then you write pipe to process parts of request logic. This one to parse request body and bin to Request field:
+ Then you write pipe to process parts of request logic. This one to parse request body and bind to "Request" field:
  
  ```
  var BindRequestPipe handler.Pipe = func(v reflect.Value, args ...interface{}) (*reflect.Value, error) {

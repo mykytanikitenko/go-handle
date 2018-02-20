@@ -11,19 +11,19 @@ func Test_New_PipesNil_ExpectPipesNilError(t *testing.T) {
 	assert.Equal(t, ErrorPipesNil, err)
 }
 
-func Test_New_TNil_ExpectTNilError(t *testing.T)  {
+func Test_New_TNil_ExpectTNilError(t *testing.T) {
 	_, err := New(pipesMock, nil, nil)
 
 	assert.Equal(t, ErrorTNil, err)
 }
 
-func Test_New_ConverterNil_ExpectConverterNilError(t *testing.T)  {
+func Test_New_ConverterNil_ExpectConverterNilError(t *testing.T) {
 	_, err := New(pipesMock, tMock, nil)
 
 	assert.Equal(t, ErrorConverterNil, err)
 }
 
-func Test_New_PassNotNill_ExpectNoNilParamsErrors(t *testing.T)  {
+func Test_New_PassNotNill_ExpectNoNilParamsErrors(t *testing.T) {
 	_, err := New(pipesMock, tMock, converterMock)
 
 	assert.NotEqual(t, ErrorPipesNil, err)
@@ -64,7 +64,7 @@ func Test_New_TCtorVoid_ExpectError(t *testing.T) {
 }
 
 func Test_New_TCtorMoreThanOneReturns_ExpectError(t *testing.T) {
-	_, err := New(mockPipes, func() (int, int){return 0, 0}, converterMock)
+	_, err := New(mockPipes, func() (int, int) { return 0, 0 }, converterMock)
 
 	assert.Equal(t, ErrorTCtorFuncMoreThanOneReturnType, err)
 }
@@ -76,7 +76,7 @@ func Test_New_TCtorNonStructPtr_ExpectError(t *testing.T) {
 }
 
 func Test_New_TCtorFuncNonStructPtr_ExpectError(t *testing.T) {
-	_, err := New(mockPipes, func() *int{return nil}, converterMock)
+	_, err := New(mockPipes, func() *int { return nil }, converterMock)
 
 	assert.Equal(t, ErrorPointerNonStructType, err)
 }

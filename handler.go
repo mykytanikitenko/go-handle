@@ -5,6 +5,7 @@ import (
 	"reflect"
 )
 
+// Handler represents handler getter
 type Handler interface {
 	Handler() interface{}
 }
@@ -141,7 +142,7 @@ func (h *handler) Handler() interface{} {
 		// Creating new instance of handler
 		instance := h.ctor()
 
-		var executePipesArray func(pipes []Pipe) (error)
+		var executePipesArray func(pipes []Pipe) error
 		var executePipes func(pipes interface{}) (*reflect.Value, error)
 
 		executePipesArray = func(pipes []Pipe) error {

@@ -9,7 +9,7 @@ var (
 
 	tMock struct{}
 
-	converterMock Converter = func(f func(args ...interface{}) error) interface{} {
+	converterMock Converter = func(f GenericHandlerFunc) interface{} {
 		return func(ctx *mockContext) error {
 			return f(ctx)
 		}
@@ -24,7 +24,7 @@ var (
 )
 
 type (
-	mockStruct struct{
+	mockStruct struct {
 		Field1, Field2 string
 	}
 

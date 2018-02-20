@@ -2,12 +2,12 @@ package main
 
 import (
 	"github.com/labstack/echo"
+	"github.com/labstack/echo/middleware"
 	"github.com/mykytanikitenko/go-handle"
 	"github.com/mykytanikitenko/go-handle/examples/echo-example/action"
-	"reflect"
-	"net/http"
-	"github.com/labstack/echo/middleware"
 	"gopkg.in/validator.v2"
+	"net/http"
+	"reflect"
 )
 
 var ActionPipes = handler.PipeGroup{
@@ -83,7 +83,7 @@ var NoActionsPipe handler.Pipe = func(v reflect.Value, args ...interface{}) (*re
 	panic("can't process action: no action methods")
 }
 
-var EchoHandler handler.Converter = func(f func(...interface{}) error) interface{} {
+var EchoHandler handler.Converter = func(f handler.GenericHandlerFunc) interface{} {
 	return echo.HandlerFunc(
 		func(ctx echo.Context) error {
 			return f(ctx)

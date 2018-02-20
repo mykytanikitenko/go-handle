@@ -1,10 +1,10 @@
 package handler
 
 import (
-	"testing"
 	"github.com/stretchr/testify/assert"
 	"reflect"
-	"github.com/go-errors/errors"
+	"testing"
+	"errors"
 )
 
 func Test_Handler_NopPipe_ExpectNoErrorsAndPanics(t *testing.T) {
@@ -124,7 +124,7 @@ func Test_Handler_CheckConvert(t *testing.T) {
 
 	var converterCalled, convertedHandlerCalled bool
 
-	var convert Converter = func(f func(...interface{}) error) interface{} {
+	var convert Converter = func(f GenericHandlerFunc) interface{} {
 		converterCalled = true
 
 		return func(ctx *mockContext) error {
