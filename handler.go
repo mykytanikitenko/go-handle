@@ -189,7 +189,7 @@ func (h *handler) Handler() interface{} {
 						return nil, err
 					}
 
-					if v == nil {
+					if v == AbortPipeGroup {
 						break
 					}
 				}

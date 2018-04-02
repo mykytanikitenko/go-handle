@@ -19,16 +19,16 @@ var BindRequestPipe handler.Pipe = func(v reflect.Value, args ...interface{}) (*
 	field := v.FieldByName("Request")
 
 	if !field.IsValid() {
-		return nil, nil
+		return handler.AbortPipeGroup, nil
 	}
 
 	ctx := args[0].(echo.Context)
 
 	if err := ctx.Bind(field.Addr().Interface()); err != nil {
-		return nil, err
+		return handler.AbortPipeGroup, err
 	}
 
-	return &v, nil
+	return handler.ContinuePipeGroup(v), nil
 }
 
 var ValidateRequestPipe handler.Pipe = func(v reflect.Value, args ...interface{}) (*reflect.Value, error) {
@@ -37,18 +37,18 @@ var ValidateRequestPipe handler.Pipe = func(v reflect.Value, args ...interface{}
 
 	if errs := validator.Validate(request); errs != nil {
 		if err := ctx.JSON(http.StatusBadRequest, errs); err != nil {
-			return nil, err
+			return handler.AbortPipeGroup, err
 		}
 	}
 
-	return &v, nil
+	return handler.ContinuePipeGroup(v), nil
 }
 
 var CallActionPipe handler.Pipe = func(v reflect.Value, args ...interface{}) (*reflect.Value, error) {
 	action := v.MethodByName("Action")
 
 	if !action.IsValid() {
-		return &v, nil
+		return handler.ContinuePipeGroup(v), nil
 	}
 
 	if action.Type().NumIn() != 0 {
@@ -72,11 +72,11 @@ var CallActionPipe handler.Pipe = func(v reflect.Value, args ...interface{}) (*r
 
 	if !returns[errType].IsNil() {
 		if err := ctx.JSON(http.StatusBadRequest, returns[errType].Interface()); err != nil {
-			return nil, err
+			return handler.AbortPipeGroup, err
 		}
 	}
 
-	return nil, ctx.JSON(http.StatusOK, returns[0].Interface())
+	return handler.ContinuePipeGroup(v), ctx.JSON(http.StatusOK, returns[0].Interface())
 }
 
 var NoActionsPipe handler.Pipe = func(v reflect.Value, args ...interface{}) (*reflect.Value, error) {

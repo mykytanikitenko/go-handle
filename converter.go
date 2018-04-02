@@ -10,9 +10,11 @@ type GenericHandlerFunc func(...interface{}) error
 //
 // Example:
 //
-//  var EchoHandler Converter = func(f GenericHandlerFunc) error) interface{} {
-//      return func(ctx echo.Context) error {
-//          return f(ctx)
-//      }
-//  }
+// var EchoHandler handler.Converter = func(f handler.GenericHandlerFunc) interface{} {
+// 	return echo.HandlerFunc(
+// 		func(ctx echo.Context) error {
+// 			return f(ctx)
+// 		},
+// 	)
+// }
 type Converter func(GenericHandlerFunc) interface{}
